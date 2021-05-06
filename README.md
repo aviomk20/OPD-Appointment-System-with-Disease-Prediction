@@ -1,1 +1,0 @@
-# OPD-Appointment-System-with-Disease-Prediction
