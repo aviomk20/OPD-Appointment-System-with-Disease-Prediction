@@ -1,0 +1,130 @@
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from  '@react-navigation/stack';
+import SignUpScreen from './screens/SignUpScreen';
+import LoginScreen from './screens/LoginScreen';
+import OnboardingScreen from './screens/OnboardingScreen';
+import HomeScreen from './screens/HomeScreen';
+import DiseasePredictionScreen from './screens/DiseasePredictionScreen';
+import BookAppointment from './screens/BookAppointment';
+import CaseFileScreen from './screens/CaseFileScreen';
+// import MedicineReminder from './screens/MedicineReminder';
+import ExampleOne from './screens/ExampleOne';
+import ShowPrescription from './screens/ShowPrescription';
+import AppointmentHistory from './screens/AppointmentHistory';
+import ConfirmAppointment from './screens/Doctorside/ConfirmAppointment';
+import DefaultPreference from 'react-native-default-preference';
+
+const Stack = createStackNavigator();
+
+
+const Navigation = props => {
+
+    const [isLaunched,setIsLaunched] =React.useState(false);
+    const [isLoggedin,setIsLoggedin] = React.useState(false);
+
+    DefaultPreference.get('isLaunched').then(function(value) {
+        if(!value == ""){
+            setIsLaunched(true);
+        }
+        console.log("isLaunched function");
+        console.log(value);
+
+    });
+
+    DefaultPreference.get('isLoggedin').then(function(value) {
+        if(!value == ""){
+            setIsLoggedin(true);
+        }
+        console.log("isLoggedin function");
+        console.log(value);
+    });
+
+
+
+        if(!isLaunched)
+        {
+            return (
+                <NavigationContainer>
+                    <Stack.Navigator initialRouteName="ConfirmAppointment">
+
+                    <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} options={{headerShown: false}} />
+                    <Stack.Screen name="ConfirmAppointment" component={ConfirmAppointment} options={{headerShown: false}} />
+
+                        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown: false}} />
+                        <Stack.Screen name="AppointmentHistory" component={AppointmentHistory} options={{headerShown: false}} />
+
+                        <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}} />
+
+                        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:true}} />
+                        <Stack.Screen name="ShowPrescription" component={ShowPrescription} options={{headerShown:true}} />
+
+                        <Stack.Screen name="DiseasePredictionScreen" component={DiseasePredictionScreen} options={{headerShown:true}} />
+
+                        <Stack.Screen name="BookAppointment" component={BookAppointment} options={{headerShown:true}}/>
+                        <Stack.Screen name="CaseFileScreen" component={CaseFileScreen} options={{headerShown:true}}/>
+                        
+                         <Stack.Screen name="MedicineReminder" component={ExampleOne} options={{headerShown:true}}/>
+
+                        </Stack.Navigator>
+                </NavigationContainer>
+            );
+        }
+
+
+        else if(isLoggedin)
+        {
+                return (
+                    <NavigationContainer>
+                        <Stack.Navigator initialRouteName="HomeScreen">
+
+                            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:true}} />
+
+                            <Stack.Screen name="DiseasePredictionScreen" component={DiseasePredictionScreen} options={{headerShown:true}} />
+                            <Stack.Screen name="AppointmentHistory" component={AppointmentHistory} options={{headerShown:true}} />
+
+                            <Stack.Screen name="ConfirmAppointment" component={ConfirmAppointment} options={{headerShown: false}} />
+      <Stack.Screen name="BookAppointment" component={BookAppointment} options={{headerShown:true}}/>
+                            <Stack.Screen name="ShowPrescription" component={ShowPrescription} options={{headerShown:true}}/>
+                            <Stack.Screen name="CaseFileScreen" component={CaseFileScreen} options={{headerShown:true}}/>
+
+                            <Stack.Screen name="MedicineReminder" component={ExampleOne} options={{headerShown:true}}/>
+
+                            </Stack.Navigator>
+                    </NavigationContainer>
+                );
+        }
+        else{
+            return (
+                <NavigationContainer>
+                    <Stack.Navigator initialRouteName="HomeScreen">
+
+                        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown: false}} />
+
+                        <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}} />
+
+                        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:true}} />
+
+                        <Stack.Screen name="DiseasePredictionScreen" component={DiseasePredictionScreen} options={{headerShown:true}} />
+                        <Stack.Screen name="ConfirmAppointment" component={ConfirmAppointment} options={{headerShown: false}} />
+      <Stack.Screen name="AppointmentHistory" component={AppointmentHistory} options={{headerShown:true}} />
+
+                        <Stack.Screen name="BookAppointment" component={BookAppointment} options={{headerShown:true}}/>
+                        <Stack.Screen name="CaseFileScreen" component={CaseFileScreen} options={{headerShown:true}}/>
+
+                        <Stack.Screen name="MedicineReminder" component={ExampleOne} options={{headerShown:true}}/>
+                        <Stack.Screen name="ShowPrescription" component={ShowPrescription} options={{headerShown:true}}/>
+
+                        </Stack.Navigator>
+                </NavigationContainer>
+            );
+
+            }
+
+
+
+
+
+};
+
+export default Navigation;
